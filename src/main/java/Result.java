@@ -3,51 +3,41 @@ import java.util.List;
 
 class Result {
 
-    public static void main(String[] args) throws Exception {
-
-        List gradesBeforeGrading = new ArrayList();
-        gradesBeforeGrading.add(4);
-        gradesBeforeGrading.add(73);
-        gradesBeforeGrading.add(67);
-        gradesBeforeGrading.add(38);
-        gradesBeforeGrading.add(33);
-
-        gradingStudents(gradesBeforeGrading);
+    public static boolean checkStudentRange(int students) {
+        return (students >= 1 && students <= 60);
     }
 
-    public static List<Integer> gradingStudents(List<Integer> grades) throws Exception {
+    public static boolean checkGradeRange(int grade) {
+        return (grade >= 1 && grade <= 100);
+    }
 
-        List gradesAfterGrading = new ArrayList();
+    public static boolean gradeRounding(int grade) {
+       if(grade < 38){
+            return false;
+        }
+       else return grade % 5 > 2;
+    }
 
-        //Exception Handling
+    public static boolean studentsEqualsGrades(List<Integer> grades){
+        return(grades.get(0) == grades.size()-1);
+    }
 
-        if (grades.isEmpty()) {
-            throw new Exception("The list is empty");
-        } else if (grades.size() == 1) {
-            throw new Exception("No grades entered in the list");
-        } else if (grades.get(0) < 1 || grades.get(0) >= 60) {
-            throw new Exception("Invalid number of students, choose a number between 1 and 60");
-        } else {
-            for (int i = 1; i <= grades.get(0); i++) {
-                if(grades.get(i)<0||grades.get(i)>100){
-                    throw new Exception("Invalid grade entered at position "+ i);
-                }
-                if (grades.get(i) < 38) {
-                    gradesAfterGrading.add(grades.get(i));
-                    //System.out.println("test");
-                }
-                else if (grades.get(i) % 5 > 2){
-                    int grade;
-                    grade = grades.get(i) + (5 - (grades.get(i) % 5));
-                    System.out.println(grade);
-                    gradesAfterGrading.add(grade);
-                }
-                else {
-                    gradesAfterGrading.add(grades.get(i));
+
+
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+
+        List<Integer>  gradesAfterGrading = new ArrayList<>();
+
+        if(studentsEqualsGrades(grades) && checkStudentRange(grades.get(0))){
+            for (int i = 1; i < grades.size(); i++) {
+                if(checkGradeRange(grades.get(i))){
+                    if (gradeRounding(grades.get(i))){
+                        gradesAfterGrading.add(grades.get(i) + (5 - (grades.get(i) % 5)));
+                    }
+                    else gradesAfterGrading.add(grades.get(i));
                 }
             }
         }
-
         return gradesAfterGrading;
     }
 }
