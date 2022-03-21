@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ResultTest {
 
     //repo link
-    //
+    //https://github.com/christophsuperstarfh/prog2-ss21-exercise1.git
 
     //checks if number of students is between 1 and 60
     @Test
@@ -92,7 +92,6 @@ public class ResultTest {
 
         assertTrue(Result.studentsEqualsGrades(gradesBeforeGrading));
     }
-
     @Test
     void test_studentsEqualsGrades_notEqualsMoreEntries(){
 
@@ -136,6 +135,5 @@ public class ResultTest {
 
         List<Integer> actual = Result.gradingStudents(gradesBeforeGrading);
         assertEquals(expected, actual);
-
     }
 }
